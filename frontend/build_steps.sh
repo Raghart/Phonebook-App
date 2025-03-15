@@ -8,5 +8,7 @@ echo "Build script"
 # Install dependencies
 npm install
 
+npm audit fix
+
 # Install Build
 npm install build
