@@ -8,6 +8,9 @@ export default defineConfig({
     port: 4173,
     host: '0.0.0.0',
   },
+  preview: {
+    allowedHosts: ['phonebook-app-front.onrender.com'],
+  },
   test: {
     environment: 'jsdom',
     globals: true,
