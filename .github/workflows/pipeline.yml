@@ -71,3 +71,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+
+  discord_notification:
+    runs-on: ubuntu-20.04
+    needs: [tag_release, phonebook_deployment_pipeline, playwright-tests]
+    steps:
+    - name: Discord Sucess Test
+      uses: tsickert/discord-webhook@v7.0.0
+      if: success()
+      with:
+        content: "✅ New Phonebook build released!"
+        embed-title: "This build has passed all tests"
+        embed-description: |
+          New version updated in (work in progress) by ${{ github.actor }}
+          Severity: Informational
+          Release date: ${{ github.event.head_commit.timestamp }}
+        embed-color: "65280"
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+
+    - name: Discord Failure Test
+      uses: tsickert/discord-webhook@v7.0.0
+      if: failure()
+      with:
+        content: "❌ Build failed!"
+        embed-title: "A test on this build has failed"
+        embed-description: |
+          The version in the commmit uploaded by ${{ github.actor }} has failed...
+          Commit URL: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+          Severity: Error
+          Release date: ${{ github.event.head_commit.timestamp }}
+        embed-color: "16711680"
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
