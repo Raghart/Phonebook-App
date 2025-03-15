@@ -72,9 +72,9 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 app.get('/info', (req, res) => res.send(`<p>Phonebook has info for ${persons.length} people</p> <p>${new Date()}</p>`))
 
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'assets', 'index.html'));
 });
 
 app.use((error, req , res, next) => {
