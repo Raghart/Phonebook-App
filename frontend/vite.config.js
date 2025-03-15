@@ -16,5 +16,9 @@ export default defineConfig({
     globals: true,
     setupFiles: './testSetup.js',
     include: ['src/components/**/*.test.jsx'],
+  },
+  build: {
+    outDir: '../backend/assets',
+    assetsDir: ''
   }
 })
