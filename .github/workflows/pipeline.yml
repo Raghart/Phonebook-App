@@ -38,7 +38,12 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Build Frontend
+      run: npm run build
     - name: Run server
+      run: npm run start &
+    - name: Run backend
+      working-directory: ./backend
       run: npm run start &
     - name: Run Playwright tests
       run: npm run test:e2e
