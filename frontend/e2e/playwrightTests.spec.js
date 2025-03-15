@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('front page is visible', async ({ page }) => {
-  await page.goto('http://localhost:5173/')
+  await page.goto('http://localhost:4173/')
   
   await expect(page.getByText('Phonebook')).toBeVisible()
   await expect(page.getByText('Add a New Person')).toBeVisible()
@@ -18,7 +18,7 @@ test('front page is visible', async ({ page }) => {
 });
 
 test('filter is working', async ({ page }) => {
-  await page.goto('http://localhost:5173/')
+  await page.goto('http://localhost:4173/')
   
   const input = page.getByTestId('inputFilter')
 
@@ -29,7 +29,7 @@ test('filter is working', async ({ page }) => {
 });
 
 test('adding a name in the workbook is working', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:4173/');
   
   const inputName = page.getByTestId('inputName');
   const inputNumber = page.getByTestId('inputNumber');
