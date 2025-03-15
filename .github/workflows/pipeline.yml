@@ -47,6 +47,8 @@ jobs:
       run: npm install
     - name: Run backend
       working-directory: ./backend
+      env:
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
       run: npm run start &
     - name: Run Playwright tests
       run: npm run test:e2e
