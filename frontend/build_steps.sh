@@ -9,6 +9,3 @@ echo "Build script"
 npm install
 
 npm audit fix
-
-# Install Build
-npm install build
