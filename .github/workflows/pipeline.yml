@@ -1,0 +1,23 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  
+  pull_request:
+    branches: [ main, master ]
+    types: [opened, synchronize]
+
+jobs:
+  phonebook_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Tests
+        working-directory: ./frontend
+        run: npm test
