@@ -85,7 +85,7 @@ jobs:
         content: "✅ New Phonebook build released!"
         embed-title: "This build has passed all tests"
         embed-description: |
-          New version updated in (work in progress) by ${{ github.actor }}
+          New version updated in https://phonebook-app-part11.onrender.com/ by ${{ github.actor }}
           Severity: Informational
           Release date: ${{ github.event.head_commit.timestamp }}
         embed-color: "65280"
