@@ -1,0 +1,40 @@
+name: Health Check
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  rutinal_health_check:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Check the deployed service URL
+      uses: jtalk/url-health-check-action@v4
+      with:
+        url: https://phonebook-app-part11.onrender.com/
+        max-attempts: 3 
+        retry-delay: 5s
+  
+  discord_notification:
+    runs-on: ubuntu-20.04
+    needs: [rutinal_health_check]
+    steps:
+    - name: Discord HC Sucess Test
+      uses: tsickert/discord-webhook@v7.0.0
+      if: success()
+      with:
+        embed-title: "Rutinal API Health Check"
+        embed-description: "✅ The build has passed the rutinal Check!"
+        embed-color: "65280"
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+
+    - name: Discord HC Failure Test
+      uses: tsickert/discord-webhook@v7.0.0
+      if: failure()
+      with:
+        content: " Build failed!"
+        embed-title: "Rutinal API Health Check"
+        embed-description: "❌ The build has a problem! It's not avaible in https://full-pokedex.onrender.com/"
+        embed-color: "16711680"
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
